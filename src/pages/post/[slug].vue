@@ -1,0 +1,130 @@
+<template>
+	<v-container>
+		<v-row>
+			<v-col cols="12" md="1">
+			</v-col>
+			<v-col cols="12" md="8">
+				<h1 class="text-center text-h5">{{ postStore.frontmatter.title }}</h1>
+				<p class="text-center text-caption">{{ postStore.frontmatter.created_at }}</p>
+				<div class="text-center">
+					<v-chip v-for="tag in postStore.frontmatter.tags" class="mt-2 me-1 mb-2 ms-1 text-caption"
+						size="small">
+						{{ tag }}
+					</v-chip>
+				</div>
+				<v-container v-on:click="test" v-html="postStore.content"
+					:data-theme="mainStore.getIsDarkTheme() ? 'dark' : 'light'" class="markdown-body mt-2">
+				</v-container>
+
+			</v-col>
+			<v-col cols="12" md="3">
+			</v-col>
+		</v-row>
+		<v-row>
+			<v-col cols="12" md="1">
+			</v-col>
+			<v-col cols="12" md="10">
+				<Utterances :key="mainStore.getIsDarkTheme()" />
+			</v-col>
+			<v-col cols="12" md="1">
+			</v-col>
+		</v-row>
+	</v-container>
+</template>
+<script setup>
+import { ref, onMounted, watch } from 'vue';
+import { useRoute } from 'vue-router';
+import { useHead, useSeoMeta } from '@unhead/vue';
+import { usePostStore } from '@/store/post';
+import { useMainStore } from '@/store/main';
+// Markdown Imports ----------------------------------*/
+import markdownIt from 'markdown-it';
+import matter from 'gray-matter';
+/*----------------------------------------------------*/
+
+// Import Components ---------------------------------*/
+import Utterances from '@/components/Utterances.vue';
+/*----------------------------------------------------*/
+
+
+
+// View에 렌더링 될 프로트매터와 컨텐츠
+const frontmatter = ref({});
+const content = ref('');
+const isDarkTheme = ref(false);
+
+// 라우터로부터 Slug 가져오기
+const route = useRoute();
+const slug = ref(route.params.slug);
+
+const postStore = usePostStore();
+const mainStore = useMainStore();
+onMounted(async () => {
+	console.log("SLUG MOUNTED")
+});
+
+watch(() => route.params.slug, (newSlug, oldSlug) => {
+	slug.value = newSlug;
+	postStore.fetchContent();
+});
+
+await postStore.fetchContent();
+
+useSeoMeta({
+	title: 'emdas93 - ' + postStore.frontmatter.title,
+	description: postStore.frontmatter.description,
+	ogDescription: postStore.frontmatter.description,
+	ogTitle: 'emdas93 - ' + postStore.frontmatter.title,
+	ogImage: 'https://example.com/image.png',
+	twitterCard: 'summary_large_image',
+})
+
+const test = () => {
+	console.log("TEST");
+}
+
+// useHead({
+// 	title: 'emdas93 - ' + frontmatter.value.title,
+// 	meta:[
+// 		{
+// 			name: 'description',
+// 			content: frontmatter.value.description
+// 		},
+// 		{
+// 			name: 'keywords',
+// 			content: frontmatter.value.tags
+// 		},
+// 		{
+// 			property:'og:type',
+// 			content: 'website'
+// 		},
+// 		{
+// 			property: 'og:title',
+// 			content: frontmatter.value.title
+// 		},
+// 		{
+// 			property: 'og:description',
+// 			content: frontmatter.value.description
+// 		},
+// 		{
+// 			property: 'og:image',
+// 			content: 'https://example.com/image.jpg'
+// 		},
+// 		{
+// 			property: 'og:sitename',
+// 			content: 'emdas93 - ' frontmatter.value.title
+// 		},
+// 		{
+// 			property: 'og:image:width',
+// 			content: '1200'
+// 		},
+// 		{
+// 			property: 'og:image:height',
+// 			content: '630'
+// 		}
+// 	]
+// })
+
+</script>
+
+<style></style>
