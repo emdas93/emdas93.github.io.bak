@@ -4,7 +4,8 @@ import { useRoute, useRouter } from "vue-router";
 // Markdown Imports ----------------------------------*/
 import markdownIt from 'markdown-it';
 import markdownItAnchor from 'markdown-it-anchor';
-import markdownItToc from 'markdown-it-table-of-contents';
+// import markdownItToc from 'markdown-it-table-of-contents';
+import markdownItTocDoneRight from 'markdown-it-toc-done-right'
 import matter from 'gray-matter';
 /*----------------------------------------------------*/
 
@@ -17,7 +18,8 @@ export const usePostStore = defineStore('post', {
 			markdownFile: {},
 			matterObject: {},
 			frontmatter: {},
-			content: 'TESET',
+			toc: '',
+			content: '',
 		}
 	},
 
@@ -31,13 +33,17 @@ export const usePostStore = defineStore('post', {
 
 			this.slug = route.params.slug;
 
-			const md = markdownIt({
-				html: true
-			}).use(markdownItAnchor)
-				.use(markdownItToc, {
-					includeLevel: [1, 2, 3]
-				})
-				;
+			const md = markdownIt({ html: true })
+				.use(markdownItAnchor)
+				.use(markdownItTocDoneRight, {
+					containerClass: 'toc', // TOC 컨테이너 클래스 설정
+					callback: (html, ast) => {
+						const parser = new DOMParser();
+						console.log(parser.parseFromString(html, 'text/html'));
+						this.toc = html;
+					}
+				});
+
 
 			this.markdownFile = await this.markdownFileLoad(this.slug);
 

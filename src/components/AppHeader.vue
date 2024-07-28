@@ -5,12 +5,7 @@
 		</template>
 		<v-app-bar-title>
 			<router-link to="/" class="no-style-link">
-				<v-img
-				:width="30"
-				aspect-ratio="1/1"
-				cover
-				src="../assets/e3-logo.png"
-				></v-img>
+				EMDAS93
 			</router-link>
 		</v-app-bar-title>
 		<v-spacer></v-spacer>
@@ -40,7 +35,7 @@
 		</v-list-item>
 		<v-divider></v-divider>
 		<router-link class="no-style-link" to="/">
-			<v-list-item link title="Post Index"></v-list-item>
+			<v-list-item link title="Index"></v-list-item>
 		</router-link>
 	</v-navigation-drawer>
 </template>

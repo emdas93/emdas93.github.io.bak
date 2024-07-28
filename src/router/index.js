@@ -14,6 +14,7 @@ import post from '@/pages/post/[slug].vue';
 
 // Auto Route 안 쓸 경우 아래와 같이 수동으로 지정해주자.
 // 정적 사이트에서 Auto Route를 쓰면 동적으로 임포트 하기 실패했다고 뜬다... 
+
 const routes = [
 	{ path: '/', component: index },
 	{ name: 'post', path: '/post/:slug', component: post }

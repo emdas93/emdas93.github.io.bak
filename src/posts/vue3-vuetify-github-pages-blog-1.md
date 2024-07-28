@@ -1,5 +1,5 @@
 ---
-title: "#1 Vue3와 Vuetify, 그리고 Github Pages로 블로그 만들기 - 준비물 및 간략 가이드"
+title: "#1 Vue3와 Vuetify 그리고 Github Pages로 블로그 만들기 - 준비물 및 간략 가이드"
 description: Vue3와 Vuetify를 사용해 Github Pages에 블로그를 만드는 과정을 단계별로 정리한 글입니다.
 tags: [Vue3, Vuetify, Github Pages, 블로그, 웹 개발]
 author: emdas93
@@ -11,11 +11,10 @@ published: true
 created_at: 2024-07-26 10:07
 updated_at: 2024-07-26 10:07
 ---
-[[toc]]
 
 # Vue3와 Vuetify, 그리고 Github Pages로 나만의 블로그 만들기
 
-안녕하세요! emdas93입니다.
+안녕하세요.
 
 최근에 Vue3와 Vuetify를 공부하면서 이를 활용해 Github Pages에 블로그를 만들어보았습니다. 흔히 Github 블로그라고 하면 Jekyll이라는 정적 사이트 생성기(SSG)를 많이 떠올리실 텐데요. 저도 Jekyll을 사용해봤지만, 이번에는 제가 잘 알고 있는 언어로 블로그를 만들어 자유도를 높여보고 싶었습니다. 
 
