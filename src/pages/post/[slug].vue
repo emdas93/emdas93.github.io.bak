@@ -1,6 +1,6 @@
 <template>
 	<v-container>
-		<v-row>
+		<v-row class="flex-wrap-reverse">
 			<v-col cols="12" md="1">
 			</v-col>
 			<v-col cols="12" md="8" class="content-container">
@@ -18,7 +18,7 @@
 				<Utterances :key="mainStore.getIsDarkTheme()" />
 			</v-col>
 			<v-col cols="12" md="3">
-				<TocContainer :content="postStore.toc" />
+				<TocContainer :content="postStore.toc" class="position-fixed" />
 			</v-col>
 		</v-row>
 	</v-container>
@@ -29,6 +29,7 @@ import { useRoute } from 'vue-router';
 import { useHead, useSeoMeta } from '@unhead/vue';
 import { usePostStore } from '@/store/post';
 import { useMainStore } from '@/store/main';
+
 // Markdown Imports ----------------------------------*/
 import markdownIt from 'markdown-it';
 import matter from 'gray-matter';
@@ -55,7 +56,6 @@ const mainStore = useMainStore();
 
 // Client Side Render
 onMounted(async () => {
-	console.log("Mounted Test");
 });
 
 watch(() => route.params.slug, (newSlug, oldSlug) => {
@@ -77,13 +77,19 @@ useSeoMeta({
 </script>
 
 <style>
-.content-container {
-  max-height: calc(100vh - 200px);
+/* .content-container {
+  max-height: calc(100vh - 150px);
   overflow-y: auto;
   padding: 20px;
 }
 
 .content-container::-webkit-scrollbar {
   display: none;
+} */
+
+@media (max-width: 960px) {
+  .toc-container {
+    display: none;
+  }
 }
 </style>

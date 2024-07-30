@@ -5,6 +5,9 @@ import fs from 'node:fs'
 import path from 'node:path'
 import url from 'node:url'
 
+// // 기존 dist 폴더 삭제
+// fs.rmdirSync('dist', { recursive: true, force: true });
+
 const __dirname = path.dirname(url.fileURLToPath(import.meta.url))
 
 const toAbsolute = (p) => path.resolve(__dirname, p)

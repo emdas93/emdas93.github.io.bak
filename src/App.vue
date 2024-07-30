@@ -1,11 +1,10 @@
 <template>
-	<metainfo></metainfo>
 	<v-app>
+		<AppHeader />
 		<v-main>
-			<AppHeader />
 			<router-view />
-			<AppFooter />
 		</v-main>
+		<!-- <AppFooter /> -->
 	</v-app>
 </template>
 
@@ -14,8 +13,8 @@ import { watch, onMounted, ref } from 'vue';
 import { useTheme } from 'vuetify';
 import { useMainStore } from './store/main';
 
-import AppHeader from '/src/components/AppHeader.vue';
-import AppFooter from '/src/components/AppFooter.vue';
+import AppHeader from '@/components/AppHeader.vue';
+import AppFooter from '@/components/AppFooter.vue';
 
 const mainStore = useMainStore();
 const theme = useTheme();
@@ -43,5 +42,9 @@ watch(() => theme.current.value.dark, (newValue, oldValue) => {
 .no-style-link:hover {
 	color: inherit;
 	text-decoration: none;
+}
+
+html {
+	scroll-padding-top: 64px;
 }
 </style>

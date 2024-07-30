@@ -7,6 +7,7 @@ import markdownItAnchor from 'markdown-it-anchor';
 // import markdownItToc from 'markdown-it-table-of-contents';
 import markdownItTocDoneRight from 'markdown-it-toc-done-right'
 import matter from 'gray-matter';
+import uslug from "uslug";
 /*----------------------------------------------------*/
 
 export const usePostStore = defineStore('post', {
@@ -20,6 +21,7 @@ export const usePostStore = defineStore('post', {
 			frontmatter: {},
 			toc: '',
 			content: '',
+			tocElement: {},
 		}
 	},
 
@@ -34,12 +36,11 @@ export const usePostStore = defineStore('post', {
 			this.slug = route.params.slug;
 
 			const md = markdownIt({ html: true })
-				.use(markdownItAnchor)
+				.use(markdownItAnchor, {slugify: (s) => { return uslug(s) },})
 				.use(markdownItTocDoneRight, {
 					containerClass: 'toc', // TOC 컨테이너 클래스 설정
+					slugify: (s) => { return uslug(s) },
 					callback: (html, ast) => {
-						const parser = new DOMParser();
-						console.log(parser.parseFromString(html, 'text/html'));
 						this.toc = html;
 					}
 				});

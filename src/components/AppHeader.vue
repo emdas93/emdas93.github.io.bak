@@ -1,8 +1,8 @@
 <template>
 	<v-app-bar :elevation="2">
-		<template v-slot:prepend>
+		<!-- <template v-slot:prepend>
 			<v-app-bar-nav-icon @click="toggleNavigationDrawer()"></v-app-bar-nav-icon>
-		</template>
+		</template> -->
 		<v-app-bar-title>
 			<router-link to="/" class="no-style-link">
 				EMDAS93
@@ -28,7 +28,7 @@
 		</v-menu>
 	</v-app-bar>
 
-	<v-navigation-drawer v-model="sidebarOpenState">
+	<!-- <v-navigation-drawer v-model="sidebarOpenState">
 		<v-list-item>
 			<v-list-item-title>emdas93</v-list-item-title>
 			<v-list-item-subtitle>Blog</v-list-item-subtitle>
@@ -37,25 +37,24 @@
 		<router-link class="no-style-link" to="/">
 			<v-list-item link title="Index"></v-list-item>
 		</router-link>
-	</v-navigation-drawer>
+	</v-navigation-drawer> -->
 </template>
 
 <script setup>
-	import { ref } from 'vue';
-	import { useTheme } from 'vuetify';
+import { ref } from 'vue';
+import { useTheme } from 'vuetify';
 
-	const sidebarOpenState = ref(false);
-	const toggleNavigationDrawer = () => {
-		sidebarOpenState.value = !sidebarOpenState.value;
-	};
+const sidebarOpenState = ref(false);
+const toggleNavigationDrawer = () => {
+	sidebarOpenState.value = !sidebarOpenState.value;
+};
 
-	const theme = useTheme();
-	const toggleDarkTheme = () => {
-		theme.global.name.value = theme.global.current.value.dark ? 'light' : 'dark'
-	}
+const theme = useTheme();
+const toggleDarkTheme = () => {
+	theme.global.name.value = theme.global.current.value.dark ? 'light' : 'dark'
+}
 
-  
+
 
 </script>
-<style>
-</style>
+<style></style>
