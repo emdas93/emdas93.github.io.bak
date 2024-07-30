@@ -4,6 +4,7 @@
 
 <script setup>
 import { usePostStore } from '@/store/post';
+import uslug from "uslug";
 const props = defineProps({
 	content: {
 		type: String,
@@ -15,6 +16,34 @@ const isClient = typeof window !== 'undefined';
 const postStore = usePostStore();
 
 if (isClient) {
+	// 초기 로딩 시 해시 값을 확인하여 해당 위치로 스크롤
+	const initialHash = window.location.hash;
+	if (initialHash) {
+		const decodedHash = decodeURIComponent(initialHash);
+		const targetId = decodedHash.substring(1); // 해시 앞의 '#' 제거 후 ID로 사용
+
+		const scrollToElement = () => {
+			const targetElement = document.getElementById(targetId);
+			if (targetElement) {
+				targetElement.scrollIntoView({ behavior: 'smooth' });
+				return true;
+			}
+			return false;
+		};
+
+		if (!scrollToElement()) {
+			const observer = new MutationObserver((mutations, observerInstance) => {
+				if (scrollToElement()) {
+					observerInstance.disconnect();
+				}
+			});
+
+			observer.observe(document.body, {
+				childList: true,
+				subtree: true
+			});
+		}
+	}
 	const scrollspy = () => {
 		if (!postStore.tocElement) {
 			postStore.tocElement = document.getElementsByClassName('toc-container')[0];
@@ -43,7 +72,7 @@ if (isClient) {
 
 			tocLinks.forEach((link) => {
 				link.classList.remove('text-high-emphasis');
-				
+
 				if (link.getAttribute('href') === `#${id}`) {
 					link.classList.add('text-high-emphasis');
 				}
