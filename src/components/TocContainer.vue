@@ -18,6 +18,7 @@ const postStore = usePostStore();
 if (isClient) {
 	// 초기 로딩 시 해시 값을 확인하여 해당 위치로 스크롤
 	const initialHash = window.location.hash;
+	
 	if (initialHash) {
 		const decodedHash = decodeURIComponent(initialHash);
 		const targetId = decodedHash.substring(1); // 해시 앞의 '#' 제거 후 ID로 사용
@@ -45,9 +46,7 @@ if (isClient) {
 		}
 	}
 	const scrollspy = () => {
-		if (!postStore.tocElement) {
-			postStore.tocElement = document.getElementsByClassName('toc-container')[0];
-		}
+		const tocElement = document.getElementsByClassName('toc-container')[0];
 
 		const contentElement = document.getElementsByClassName('markdown-body')[0];
 		const hElements = contentElement.querySelectorAll('h1, h2, h3');
@@ -68,7 +67,7 @@ if (isClient) {
 
 		if (activeElement) {
 			const id = activeElement.id;
-			const tocLinks = postStore.tocElement.querySelectorAll('a');
+			const tocLinks = tocElement.querySelectorAll('a');
 
 			tocLinks.forEach((link) => {
 				link.classList.remove('text-high-emphasis');
