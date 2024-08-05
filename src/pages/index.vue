@@ -46,10 +46,10 @@ const posts = ref([]);
 
 await postStore.markdownListLoad();
 
-const files = Object.keys(postStore.markdownFiles);
+const files = Object.keys(postStore.markdownFileList);
 
 for (let filename in files) {
-	let mdFile = await postStore.markdownFiles[files[filename]]();
+	let mdFile = await postStore.markdownFileList[files[filename]]();
 	let frontmatter = matter(mdFile.default);
 	if (frontmatter.data.slug !== 'tamplate') {
 		posts.value.push(frontmatter.data);

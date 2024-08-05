@@ -15,7 +15,7 @@ export const usePostStore = defineStore('post', {
 	store: () => {
 		return {
 			slug: '',
-			markdownFiles: undefined,
+			markdownFileList: undefined,
 			markdownFile: {},
 			matterObject: {},
 			frontmatter: {},
@@ -60,8 +60,8 @@ export const usePostStore = defineStore('post', {
 				const filePath = `/src/posts/${filename}.md`;
 				await this.markdownListLoad();
 
-				if (this.markdownFiles[filePath]) {
-					const module = await this.markdownFiles[filePath]();
+				if (this.markdownFileList[filePath]) {
+					const module = await this.markdownFileList[filePath]();
 					return module.default;
 				} else {
 					console.error(`File ${filename}.md not found`);
@@ -73,8 +73,8 @@ export const usePostStore = defineStore('post', {
 			}
 		},
 		async markdownListLoad() {
-			if (this.markdownFiles === undefined) {
-				this.markdownFiles = await import.meta.glob('/src/posts/*.md');
+			if (this.markdownFileList === undefined) {
+				this.markdownFileList = await import.meta.glob('/src/posts/*.md');
 			}
 		}
 	}

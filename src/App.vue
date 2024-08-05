@@ -20,19 +20,19 @@ const mainStore = useMainStore();
 const theme = useTheme();
 
 onMounted(() => {
-	mainStore.setIsDarkTheme(theme.current.value.dark);
+	// mainStore.setIsDarkTheme(theme.current.value.dark);
 })
 
 // 테마가 변경될 때 감지하고 실행되는 훅
 watch(() => theme.current.value.dark, (newValue, oldValue) => {
-	mainStore.setIsDarkTheme(newValue);
+	// mainStore.setIsDarkTheme(newValue);
 });
 
 
 </script>
 
 <style>
-@import url('../node_modules/github-markdown-css/github-markdown.css');
+@import url('../node_modules/github-markdown-css/github-markdown-light.css');
 
 .no-style-link {
 	color: inherit;
@@ -45,6 +45,6 @@ watch(() => theme.current.value.dark, (newValue, oldValue) => {
 }
 
 html {
-	scroll-padding-top: 64px;
+	/* scroll-padding-top: 64px; */
 }
 </style>

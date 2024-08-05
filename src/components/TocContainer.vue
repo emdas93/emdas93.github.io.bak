@@ -55,7 +55,7 @@ if (isClient) {
 
 		hElements.forEach((el) => {
 			const rect = el.getBoundingClientRect();
-			if (rect.top < 70) {
+			if (rect.top < 1) {
 				activeElement = el;
 			}
 		});
@@ -85,7 +85,7 @@ if (isClient) {
 
 <style>
 .toc-container {
-	max-height: calc(100vh - 60px);
+	max-height: calc(100vh);
 	overflow-y: auto;
 	padding: 20px;
 	-ms-overflow-style: none;
